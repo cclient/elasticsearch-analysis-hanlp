@@ -72,19 +72,14 @@ public class HanLpIndicesAnalysis extends AbstractComponent {
         // Register hanlp analyzer
         indicesAnalysisService.analyzerProviderFactories().put("hanlp",
                                                                new PreBuiltAnalyzerProviderFactory("hanlp", AnalyzerScope.INDICES,
-                                                                                                   new HanLPAnalyzer(analyzerIndexMode, analyzerNameRecognize, analyzerTranslatedNameRecognize,
-                                                                                                                     analyzerJapaneseNameRecognize, analyzerPlaceRecognize, analyzerOrganizationRecognize,
-                                                                                                                     analyzerUseCustomDictionary, analyzerSpeechTagging, analyzerOffset,
-                                                                                                                     analyzerNumberQuantifierRecognize, analyzerThreads, null)));
+                                                                                                   new HanLPAnalyzer()));
 
         // Register hanlp_tokenizer tokenizer
         indicesAnalysisService.tokenizerFactories().put("hanlp_tokenizer", new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
-            @Override
             public String name() {
                 return "hanlp_tokenizer";
             }
 
-            @Override
             public Tokenizer create() {
                 return new HanLPTokenizer(HanLP.newSegment()
                                                .enableIndexMode(tokenizerIndexMode)
@@ -104,12 +99,10 @@ public class HanLpIndicesAnalysis extends AbstractComponent {
 
         // Register hanlp_word token filter -- noop
         indicesAnalysisService.tokenFilterFactories().put("hanlp_word", new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
-            @Override
             public String name() {
                 return "hanlp_word";
             }
 
-            @Override
             public TokenStream create(TokenStream tokenStream) {
                 return tokenStream;
             }
@@ -168,8 +161,6 @@ public class HanLpIndicesAnalysis extends AbstractComponent {
             settings.get(PERSON_DICTIONARY_TR_PATH, HanLP.Config.PersonDictionaryTrPath);
         HanLP.Config.CustomDictionaryPath =
             settings.getAsArray(CUSTOM_DICTIONARY_PATH, HanLP.Config.CustomDictionaryPath);
-        HanLP.Config.TraditionalChineseDictionaryPath =
-            settings.get(TRADITIONAL_CHINESE_DICTIONARY_PATH, HanLP.Config.TraditionalChineseDictionaryPath);
         HanLP.Config.SYTDictionaryPath =
             settings.get(SYT_DICTIONARY_PATH, HanLP.Config.SYTDictionaryPath);
         HanLP.Config.PinyinDictionaryPath =

@@ -48,12 +48,9 @@ public class HanLpAnalyzerProvider extends AbstractIndexAnalyzerProvider<HanLPAn
         boolean numberQuantifierRecognize = settings.getAsBoolean(NUMBER_QUANTIFIER_RECOGNIZE, false);
         int threads = settings.getAsInt(THREADS, 1); // if more than 1, it means use multi-threading
 
-        analyzer = new HanLPAnalyzer(indexMode, nameRecognize, translatedNameRecognize, japaneseNameRecognize,
-                                     placeRecognize, organizationRecognize, useCustomDictionary, speechTagging, offset,
-                                     numberQuantifierRecognize, threads, null);
+        analyzer = new HanLPAnalyzer();
     }
 
-    @Override
     public HanLPAnalyzer get() {
         return this.analyzer;
     }
